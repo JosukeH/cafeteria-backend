@@ -2,10 +2,6 @@ import User from '../models/User.js'
 import generateId from '../helpers/generarId.js'
 import generarJWT from '../helpers/generarJWT.js'
 
-export const getUser = (req, res) => {
-
-}
-
 export const createUser = async (req, res) => {
   const { email } = req.body
   const userExists = await User.findOne({ email })
@@ -49,5 +45,15 @@ export const loginUser = async (req, res) => {
   } else {
     const error = new Error('Password is incorrect')
     return res.status(403).json({ error: error.message })
+  }
+}
+
+export const getUsers = async (req, res) => {
+  try {
+    const users = await User.find({ })
+    res.json(users)
+  } catch (error) {
+    console.log(error)
+    res.json({ error: 'error requesting data' })
   }
 }
