@@ -30,16 +30,18 @@ export const loginUser = async (req, res) => {
     return res.status(404).json({ error: error.message })
   }
   // verificar si el usuario esta verificado
-  if (!userExist.verfication) {
-    const error = new Error('User is not verified')
-    return res.status(403).json({ error: error.message })
-  }
+  // if (!userExist.verfication) {
+  // const error = new Error('User is not verified')
+  // return res.status(403).json({ error: error.message })
+  // }
+
   // verificar si el password esta bien
   if (await userExist.verifyPassword(password)) {
     return res.status(403).json({
       _id: userExist._id,
       name: userExist.name,
       email: userExist.email,
+      verfication: userExist.verfication,
       token: generarJWT(userExist._id)
     })
   } else {

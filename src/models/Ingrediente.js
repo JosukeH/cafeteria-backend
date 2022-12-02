@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 const ingredienteSchema = mongoose.Schema({
   nombre: String,
   unidadTotal: Number,
-  precioIngrediente: Number,
+  precio: Number,
   tipoIngrediente: String,
   id: Number
 })

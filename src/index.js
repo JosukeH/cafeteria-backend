@@ -4,6 +4,8 @@ import cors from 'cors'
 import { connectDatabase } from './config/db.js'
 import usersRouter from './routers/usersRouter.js'
 import ingredientsRouter from './routers/ingredienteRouter.js'
+import ventaRouter from './routers/ventaRouter.js'
+import productoRouter from './routers/productoRouter.js'
 
 dotenv.config()
 connectDatabase()
@@ -18,6 +20,8 @@ app.get('/', (req, res) => {
 // Routing
 app.use('/api/users', usersRouter)
 app.use('/api/ingredients', ingredientsRouter)
+app.use('/api/venta', ventaRouter)
+app.use('/api/producto', productoRouter)
 
 app.get('*', (req, res) => {
   res.send('La Divina Cafeteria / ERROR 404')

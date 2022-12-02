@@ -1,10 +1,11 @@
 import express from 'express'
-import { createIngrediente, getAllIngredients } from '../controllers/IngredienteController.js'
+import { createIngrediente, deleteIngrediente, getAllIngedients, updateIngredient } from '../controllers/IngredienteController.js'
 
 const router = express.Router()
 
-router.get('/', getAllIngredients)
+router.get('/', getAllIngedients)
 router.post('/', createIngrediente)
-// router.post('/login', loginUser)
+router.delete('/', deleteIngrediente)
+router.put('/', updateIngredient)
 
 export default router

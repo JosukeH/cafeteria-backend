@@ -1,14 +1,16 @@
-import mongoose from 'monoose'
+import mongoose from 'mongoose'
 
-const { Schema, model } = mongoose.Schema
+const { Schema, model } = mongoose
 
 const ventaSchema = Schema({
   id: Number,
   total: Number,
   fecha: String,
   productos: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Producto'
+    type: Schema.ObjectId,
+    ref: 'Producto',
+    precio: Number,
+    cantidad: Number
   }]
 })
 
