@@ -4,6 +4,7 @@ const ingredienteSchema = mongoose.Schema({
   nombre: String,
   unidadTotal: Number,
   precio: Number,
+  porcion: Number,
   tipoIngrediente: String,
   id: Number
 })

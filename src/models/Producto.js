@@ -9,9 +9,8 @@ const ProductoSchema = Schema({
   tipo: String,
   categoria: String,
   receta: [{
-    id: Number,
-    ingrediente: String,
-    cantidad: Number
+    type: Schema.Types.ObjectId,
+    ref: 'Receta'
   }]
 
 })

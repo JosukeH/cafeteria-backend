@@ -3,12 +3,11 @@ import mongoose from 'mongoose'
 const { model, Schema } = mongoose
 
 const RecetaSchema = Schema({
-  id: Number,
-  nombre: String,
+  id: { type: Number, trim: true },
+  nombre: { type: String, trim: true },
   receta: [{
-    type: Schema.ObjectId,
-    ref: 'Ingrediente',
-    cantidad: Number
+    type: Schema.Types.ObjectId,
+    ref: 'Ingrediente'
   }
   ]
 })

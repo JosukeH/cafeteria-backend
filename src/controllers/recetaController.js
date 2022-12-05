@@ -1,23 +1,31 @@
-import Producto from '../models/Producto.js'
+import Ingrediente from '../models/Ingrediente.js'
 import Receta from '../models/Receta.js'
 
-export const getAllProductos = async (req, res) => {
+export const getAllReceta = async (req, res) => {
   try {
-    const productos = await Producto.find({}).populate({ path: 'receta', populate: [{ path: 'receta' }] })
-    res.json(productos)
+    const model = await Receta.find({}).populate('receta')
+    res.json(model)
   } catch (error) {
     res.status(500).json({ error: error.message })
   }
 }
 
-export const createProducto = async (req, res) => {
+export const createReceta = async (req, res) => {
   const obj = req.body
+
   if (!obj) return res.status(500).json({ error: 'some params are missing' })
   try {
-    const { receta } = obj
-    const searchReceta = await Receta.findOne({ id: receta })
-    console.log(searchReceta)
-    const newObj = new Producto({ ...obj, receta: searchReceta })
+    const { receta, id, nombre } = obj
+
+    const arrOfIds = receta.map(r => r.id)
+    const ingredients = await Ingrediente.find().where('id').in(arrOfIds)
+
+    // console.log(fixedIngre)
+    const newObj = new Receta({
+      id,
+      nombre,
+      receta: ingredients
+    })
     await newObj.save()
     res.json(newObj)
   } catch (error) {
@@ -26,12 +34,12 @@ export const createProducto = async (req, res) => {
   }
 }
 
-export const updateProducto = async (req, res) => {
-  const producto = req.body
-  const { id } = producto
+export const updateReceta = async (req, res) => {
+  const newData = req.body
+  const { id } = newData
   if (!id) return res.status(500).json({ error: 'you must bring a id' })
   try {
-    const objectUpdated = Producto.findOneAndUpdate({ id }, producto, { new: true })
+    const objectUpdated = Receta.findOneAndUpdate({ id }, newData, { new: true })
     return res.json(objectUpdated).status(202)
   } catch (error) {
     console.log(error)
@@ -39,12 +47,12 @@ export const updateProducto = async (req, res) => {
   }
 }
 
-export const deleteProduct = async (req, res) => {
+export const deleteReceta = async (req, res) => {
   const { id } = req.body
   if (!id) return res.status(500).json({ error: 'you must bring a id' })
 
   try {
-    const objectDelete = Producto.findOneAndDelete({ id })
+    const objectDelete = Receta.findOneAndDelete({ id })
     return res.json(objectDelete).status(202)
   } catch (error) {
     console.log(error)

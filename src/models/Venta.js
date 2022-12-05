@@ -3,7 +3,6 @@ import mongoose from 'mongoose'
 const { Schema, model } = mongoose
 
 const ventaSchema = Schema({
-  id: Number,
   total: Number,
   fecha: String,
   productos: [{
