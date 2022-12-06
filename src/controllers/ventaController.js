@@ -25,7 +25,9 @@ export const reduceStock = async (id) => {
 
 export const getAllVentas = async (req, res) => {
   try {
-    const model = await Venta.find({}).populate({ path: 'productos', populate: { path: 'receta', populate: 'receta' } })
+    const model = await Venta.find({}).populate({ path: 'productos' }).select('-_id -_v')
+    console.log(model)
+
     res.json(model)
   } catch (error) {
     res.status(500).json({ error: error.message })

@@ -37,7 +37,7 @@ export const loginUser = async (req, res) => {
 
   // verificar si el password esta bien
   if (await userExist.verifyPassword(password)) {
-    return res.status(403).json({
+    return res.status(200).json({
       _id: userExist._id,
       name: userExist.name,
       email: userExist.email,
