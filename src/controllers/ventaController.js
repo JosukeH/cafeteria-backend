@@ -25,7 +25,7 @@ export const reduceStock = async (id) => {
 
 export const getAllVentas = async (req, res) => {
   try {
-    const model = await Venta.find({}).populate({ path: 'productos' }).select('-_id -_v')
+    const model = await Venta.find({}).populate({ path: 'productos' })
     console.log(model)
 
     res.json(model)
@@ -41,7 +41,7 @@ export const createVenta = async (req, res) => {
     const today = new Date()
     const { productos } = obj
 
-    const ids = productos.map(p => p.id)
+    const ids = productos.map(p => p._id)
     const results = []
     // const prodcs = await Producto.find().where('_id').in(ids)
     for (const id of ids) {

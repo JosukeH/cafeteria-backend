@@ -27,7 +27,8 @@ export const updateIngredient = async (req, res) => {
   const { id } = newData
   if (!id) return res.status(500).json({ error: 'you must bring a id' })
   try {
-    const objectUpdated = Ingrediente.findOneAndUpdate({ id }, newData, { new: true })
+    console.log(newData)
+    const objectUpdated = await Ingrediente.findOneAndUpdate({ id }, newData, { new: true })
     return res.json(objectUpdated).status(202)
   } catch (error) {
     console.log(error)
